@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathematicians.Domain", "Mathematicians.Domain\Mathematicians.Domain.csproj", "{7B4609D2-927E-4EAE-B44A-9B9AFFE82D85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathematicians.DAL", "Mathematicians.DAL\Mathematicians.DAL.csproj", "{33C48168-AAB2-40E1-A828-262F0A993422}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathematicians.API", "Mathematicians.API\Mathematicians.API.csproj", "{33D31543-C660-488A-88A7-5AFB09EDE79F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MergableMigrations.Specification", "..\MergableMigrations\MergableMigrations.Specification\MergableMigrations.Specification.csproj", "{879678DA-DA41-4329-B69D-17B0B5AD31D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergableMigrations.EF6", "..\MergableMigrations\MergableMigrations.EF6\MergableMigrations.EF6.csproj", "{6F10EF50-1323-474B-8D8D-EB48F03E3A9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B4609D2-927E-4EAE-B44A-9B9AFFE82D85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B4609D2-927E-4EAE-B44A-9B9AFFE82D85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B4609D2-927E-4EAE-B44A-9B9AFFE82D85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B4609D2-927E-4EAE-B44A-9B9AFFE82D85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33C48168-AAB2-40E1-A828-262F0A993422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33C48168-AAB2-40E1-A828-262F0A993422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33C48168-AAB2-40E1-A828-262F0A993422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33C48168-AAB2-40E1-A828-262F0A993422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33D31543-C660-488A-88A7-5AFB09EDE79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33D31543-C660-488A-88A7-5AFB09EDE79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33D31543-C660-488A-88A7-5AFB09EDE79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33D31543-C660-488A-88A7-5AFB09EDE79F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{879678DA-DA41-4329-B69D-17B0B5AD31D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{879678DA-DA41-4329-B69D-17B0B5AD31D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{879678DA-DA41-4329-B69D-17B0B5AD31D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{879678DA-DA41-4329-B69D-17B0B5AD31D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F10EF50-1323-474B-8D8D-EB48F03E3A9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F10EF50-1323-474B-8D8D-EB48F03E3A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F10EF50-1323-474B-8D8D-EB48F03E3A9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F10EF50-1323-474B-8D8D-EB48F03E3A9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
