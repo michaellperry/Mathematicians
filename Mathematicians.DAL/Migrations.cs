@@ -1,5 +1,4 @@
 ﻿using MergableMigrations.Specification;
-using System;
 
 namespace Mathematicians.API
 {

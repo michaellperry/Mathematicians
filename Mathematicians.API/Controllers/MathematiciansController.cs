@@ -1,10 +1,9 @@
-﻿using Mathematicians.API.Models;
-using Mathematicians.DAL;
+﻿using Mathematicians.DAL;
+using Mathematicians.Domain;
+using Mathematicians.Representations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Routing;
 
@@ -28,7 +27,7 @@ namespace Mathematicians.API.Controllers
             {
                 return Ok(context.Mathematicians
                     .ToList()
-                    .Select(x => MathematicianRepresentation.FromEntity(x, Url)));
+                    .Select(x => CreateRepresentation(x)));
             }
         }
 
@@ -45,13 +44,26 @@ namespace Mathematicians.API.Controllers
                 if (mathematician == null)
                     return NotFound();
 
-                return Ok(MathematicianRepresentation.FromEntity(mathematician, Url));
+                return Ok(CreateRepresentation(mathematician));
             }
         }
 
         private static MathematicianContext GetContext()
         {
             return new MathematicianContext("Mathematicians");
+        }
+
+        private MathematicianRepresentation CreateRepresentation(Mathematician mathematician)
+        {
+            var representation = MathematicianRepresentation.FromEntity(mathematician);
+            representation._links = new Dictionary<string, LinkReference>
+            {
+                ["self"] = new LinkReference
+                {
+                    href = Url.GetMathematician(mathematician.Unique)
+                }
+            };
+            return representation;
         }
     }
 }

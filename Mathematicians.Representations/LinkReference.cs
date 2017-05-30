@@ -1,4 +1,4 @@
-﻿namespace Mathematicians.API.Models
+﻿namespace Mathematicians.Representations
 {
     public class LinkReference
     {

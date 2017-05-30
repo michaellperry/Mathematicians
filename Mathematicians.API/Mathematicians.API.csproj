@@ -134,8 +134,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Models\LinkReference.cs" />
-    <Compile Include="Models\MathematicianRepresentation.cs" />
     <Compile Include="Controllers\MathematiciansController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,6 +185,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -207,6 +206,10 @@
     <ProjectReference Include="..\Mathematicians.Domain\Mathematicians.Domain.csproj">
       <Project>{7b4609d2-927e-4eae-b44a-9b9affe82d85}</Project>
       <Name>Mathematicians.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mathematicians.Representations\Mathematicians.Representations.csproj">
+      <Project>{85498a89-a5b3-4e25-9873-1aa9acde1b4e}</Project>
+      <Name>Mathematicians.Representations</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
