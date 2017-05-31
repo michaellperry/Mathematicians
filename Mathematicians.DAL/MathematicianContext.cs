@@ -16,9 +16,6 @@ namespace Mathematicians.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
-            modelBuilder.Entity<Mathematician>()
-                .HasUniqueIndex(x => x.Unique);
         }
     }
 }

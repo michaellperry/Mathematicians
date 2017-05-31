@@ -16,7 +16,7 @@ namespace Mathematicians.Domain
 
         public Guid Unique { get; private set; }
 
-        public Mathematician Create(Guid unique)
+        public static Mathematician Create(Guid unique)
         {
             return new Mathematician
             {

@@ -20,8 +20,14 @@ namespace Mathematicians.API.Controllers
     [RoutePrefix("api/mathematicians")]
     public class MathematiciansController : ApiController
     {
+        [Route("new", Name = "GetNewMathematician")]
+        public IHttpActionResult GetNewMathematician()
+        {
+            return Ok(CreateRepresentation(Mathematician.Create(Guid.NewGuid())));
+        }
+
         [Route(Name = "GetMathematicians")]
-        public IHttpActionResult Get()
+        public IHttpActionResult GetMathematicians()
         {
             using (var context = GetContext())
             {
@@ -31,8 +37,8 @@ namespace Mathematicians.API.Controllers
             }
         }
 
-        [Route(Name = "GetMathematician")]
-        public IHttpActionResult Get(string unique)
+        [Route("{unique}", Name = "GetMathematician")]
+        public IHttpActionResult GetMathematician(string unique)
         {
             Guid uniqueGuid = Guid.Empty;
             if (!Guid.TryParse(unique, out uniqueGuid))
@@ -40,12 +46,51 @@ namespace Mathematicians.API.Controllers
 
             using (var context = GetContext())
             {
-                var mathematician = context.Mathematicians.SingleOrDefault(x => x.Unique == uniqueGuid);
+                var mathematician = context.Mathematicians
+                    .SingleOrDefault(x => x.Unique == uniqueGuid);
+
                 if (mathematician == null)
                     return NotFound();
 
                 return Ok(CreateRepresentation(mathematician));
             }
+        }
+
+        [HttpPost]
+        [Route(Name = "CreateMathematician")]
+        public IHttpActionResult CreateMathematician(MathematicianRepresentation representation)
+        {
+            Guid uniqueGuid = Guid.Empty;
+            if (!Guid.TryParse(representation.unique, out uniqueGuid))
+                return BadRequest();
+
+            using (var context = GetContext())
+            {
+                var mathematician = context.Mathematicians
+                    .SingleOrDefault(x => x.Unique == uniqueGuid);
+
+                if (mathematician == null)
+                {
+                    mathematician = context.Mathematicians.Add(Mathematician.Create(uniqueGuid));
+                    context.SaveChanges();
+                }
+
+                return Created(
+                    Url.GetMathematician(mathematician.Unique),
+                    CreateRepresentation(mathematician));
+            }
+        }
+
+        private static Mathematician LoadMathematician(MathematicianContext context, string unique)
+        {
+            Guid uniqueGuid = Guid.Empty;
+            if (Guid.TryParse(unique, out uniqueGuid))
+            {
+                return context.Mathematicians
+                    .SingleOrDefault(x => x.Unique == uniqueGuid);
+            }
+
+            return null;
         }
 
         private static MathematicianContext GetContext()
