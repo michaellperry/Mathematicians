@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityConfigurationExtensions.cs" />
     <Compile Include="MathematicianContext.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

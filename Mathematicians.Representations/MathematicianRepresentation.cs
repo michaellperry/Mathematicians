@@ -5,7 +5,7 @@ namespace Mathematicians.Representations
 {
     public class MathematicianRepresentation
     {
-        public MathematicianRepresentation()
+        private MathematicianRepresentation()
         {
         }
 
