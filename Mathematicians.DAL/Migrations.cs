@@ -8,10 +8,10 @@ namespace Mathematicians.API
         {
             var dbo = db.UseSchema("dbo");
 
-            CreateMathematician(dbo);
+            CreateMathematician(db, dbo);
         }
 
-        private void CreateMathematician(SchemaSpecification dbo)
+        private void CreateMathematician(DatabaseSpecification db, SchemaSpecification dbo)
         {
             var table = dbo.CreateTable("Mathematician");
 
@@ -19,7 +19,17 @@ namespace Mathematicians.API
             var unique = table.CreateGuidColumn("Unique");
 
             table.CreatePrimaryKey(id);
-            table.CreateUniqueIndex(unique);
+
+            var generateIds = db
+                .After(table, unique)
+                .Execute(@"
+                    UPDATE dbo.Mathematician
+                    SET [Unique] = NEWID()
+                    WHERE [Unique] = '00000000-0000-0000-0000-000000000000'");
+
+            table
+                .After(generateIds)
+                .CreateUniqueIndex(unique);
         }
     }
 }
