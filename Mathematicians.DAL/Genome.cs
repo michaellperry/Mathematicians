@@ -1,10 +1,11 @@
-﻿using MergableMigrations.Specification;
+﻿using Schemavolution.Specification;
+using System;
 
 namespace Mathematicians.API
 {
-    public class Migrations : IMigrations
+    public class Genome : IGenome
     {
-        public void AddMigrations(DatabaseSpecification db)
+        public void AddGenes(DatabaseSpecification db)
         {
             var dbo = db.UseSchema("dbo");
 
