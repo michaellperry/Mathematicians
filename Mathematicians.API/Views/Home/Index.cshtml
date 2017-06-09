@@ -17,7 +17,7 @@
                 <p>Create a new mathematician.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">OK</button>
+                <button id="new-mathematician-create" type="button" class="btn btn-primary">OK</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -27,9 +27,32 @@
 @section Scripts
 {
     <script type="text/javascript">
+        var _links = {
+            getNewMathematician: '@Url.HttpRouteUrl("GetNewMathematician", new { })',
+            createMathematician: '@Url.HttpRouteUrl("CreateMathematician", new { })'
+        };
+
         $(document).ready(function () {
+            var newMathematician = null;
+
             $('#new-mathematician').on('click', function () {
-                $('#new-mathematician-modal').modal();
+                $.get(_links.getNewMathematician)
+                    .done(function (response) {
+                        newMathematician = response;
+                        $('#new-mathematician-modal').modal();
+                    });
+            });
+
+            $('#new-mathematician-create').on('click', function () {
+                $.ajax(_links.createMathematician, {
+                        type: 'POST',
+                        data: JSON.stringify(newMathematician),
+                        contentType: 'application/json'
+                    })
+                    .done(function (response) {
+                        newMathematician = null;
+                        $('#new-mathematician-modal').modal('hide');
+                    });
             });
         });
     </script>    
