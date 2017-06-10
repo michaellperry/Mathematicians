@@ -16,6 +16,15 @@ namespace Mathematicians.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<MathematicianName>()
+                .HasMany(x => x.Prior)
+                .WithMany(x => x.Next)
+                .Map(m => m
+                    .ToTable("MathematicianNamePrior")
+                    .MapLeftKey("MathematicianNameId")
+                    .MapRightKey("PriorMathematicianNameId")
+                );
         }
     }
 }

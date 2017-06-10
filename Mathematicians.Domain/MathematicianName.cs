@@ -18,5 +18,7 @@ namespace Mathematicians.Domain
 
         public virtual ICollection<MathematicianName> Prior { get; } =
             new List<MathematicianName>();
+        public virtual ICollection<MathematicianName> Next { get; } =
+            new List<MathematicianName>();
     }
 }
