@@ -1,7 +1,6 @@
 ﻿using Mathematicians.Domain;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 
 namespace Mathematicians.Representations
 {
@@ -25,14 +24,14 @@ namespace Mathematicians.Representations
         public static NameRepresentation FromEntities(IEnumerable<MathematicianName> names)
         {
             var prior = names
-                .Select(x => x.HashCode.ToString())
+                .Select(x => x.HashCodeInt.ToBase64String())
                 .ToList();
             var firstName = names
-                .OrderBy(x => x.HashCode)
+                .OrderBy(x => x.HashCodeInt)
                 .Select(x => x.FirstName)
                 .FirstOrDefault();
             var lastName = names
-                .OrderBy(x => x.HashCode)
+                .OrderBy(x => x.HashCodeInt)
                 .Select(x => x.LastName)
                 .FirstOrDefault();
             return new NameRepresentation(

@@ -4,7 +4,6 @@ using Mathematicians.Representations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Web.Http;
 using System.Web.Http.Routing;
 
@@ -33,6 +32,8 @@ namespace Mathematicians.API.Controllers
             using (var context = GetContext())
             {
                 return Ok(context.Mathematicians
+                    .Include("Names")
+                    .Include("Names.Prior")
                     .ToList()
                     .Select(x => CreateRepresentation(x)));
             }
@@ -115,7 +116,7 @@ namespace Mathematicians.API.Controllers
         private static void SetName(Mathematician mathematician, NameRepresentation name)
         {
             mathematician.SetName(
-                name.prior.Select(s => BigInteger.Parse(s)),
+                name.prior.Select(s => s.FromBase64String()),
                 name.firstName,
                 name.lastName);
         }

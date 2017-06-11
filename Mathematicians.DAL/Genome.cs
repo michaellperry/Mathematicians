@@ -33,6 +33,7 @@ namespace Mathematicians.API
             var mathematicianId = table.CreateIntColumn("MathematicianId");
             var firstName = table.CreateStringColumn("FirstName", 50);
             var lastName = table.CreateStringColumn("LastName", 50);
+            var hashCode = table.CreateFixedBinaryColumn("HashCode", 32);
 
             var index = table.CreateIndex(mathematicianId);
             var fk = index.CreateForeignKey(mathematicianPk);

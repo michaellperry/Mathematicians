@@ -1,10 +1,11 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace Mathematicians.Domain
 {
-    static class HashExtensions
+    public static class HashExtensions
     {
         public static BigInteger Sha256Hash(this string str)
         {
@@ -34,6 +35,16 @@ namespace Mathematicians.Domain
                 byte[] hashBytes = digest.Hash;
                 return new BigInteger(hashBytes);
             }
+        }
+
+        public static string ToBase64String(this BigInteger hashCode)
+        {
+            return Convert.ToBase64String(hashCode.ToByteArray());
+        }
+
+        public static BigInteger FromBase64String(this string str)
+        {
+            return new BigInteger(Convert.FromBase64String(str));
         }
     }
 }

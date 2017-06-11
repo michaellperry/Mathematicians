@@ -22,7 +22,7 @@ namespace Mathematicians.Domain
 
         public void SetName(IEnumerable<BigInteger> prior, string firstName, string lastName)
         {
-            var priorNames = Names.Where(n => prior.Contains(n.HashCode));
+            var priorNames = Names.Where(n => prior.Contains(n.HashCodeInt));
             Names.Add(new MathematicianName(priorNames, firstName, lastName));
         }
 
