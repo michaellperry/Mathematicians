@@ -26,7 +26,11 @@ namespace Mathematicians.Domain
             if (priorNames.Count() == 1 && NameEquals(priorNames.Single(), firstName, lastName))
                 return;
 
-            Names.Add(new MathematicianName(priorNames, firstName, lastName));
+            var newName = new MathematicianName(priorNames, firstName, lastName);
+            if (Names.Any(n => n.HashCodeInt == newName.HashCodeInt))
+                return;
+
+            Names.Add(newName);
         }
 
         public static Mathematician Create(Guid unique)
