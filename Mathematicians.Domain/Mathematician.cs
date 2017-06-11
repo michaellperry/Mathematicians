@@ -20,7 +20,7 @@ namespace Mathematicians.Domain
         public IEnumerable<MathematicianName> CurrentNames =>
             Names.Where(x => !x.Next.Any());
 
-        public void SetName(List<BigInteger> prior, string firstName, string lastName)
+        public void SetName(IEnumerable<BigInteger> prior, string firstName, string lastName)
         {
             var priorNames = Names.Where(n => prior.Contains(n.HashCode));
             Names.Add(new MathematicianName(priorNames, firstName, lastName));

@@ -4,6 +4,7 @@ using Mathematicians.Representations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Web.Http;
 using System.Web.Http.Routing;
 
@@ -72,7 +73,7 @@ namespace Mathematicians.API.Controllers
                 if (mathematician == null)
                 {
                     mathematician = context.Mathematicians.Add(Mathematician.Create(uniqueGuid));
-                    mathematician.SetName(representation.name.prior, representation.name.firstName, representation.name.lastName);
+                    SetName(mathematician, representation.name);
                     context.SaveChanges();
                 }
 
@@ -98,7 +99,7 @@ namespace Mathematicians.API.Controllers
                 if (mathematician == null)
                     return NotFound();
 
-                mathematician.SetName(representation.name.prior, representation.name.firstName, representation.name.lastName);
+                SetName(mathematician, representation.name);
                 context.SaveChanges();
 
                 return Ok(
@@ -109,6 +110,14 @@ namespace Mathematicians.API.Controllers
         private static MathematicianContext GetContext()
         {
             return new MathematicianContext("Mathematicians");
+        }
+
+        private static void SetName(Mathematician mathematician, NameRepresentation name)
+        {
+            mathematician.SetName(
+                name.prior.Select(s => BigInteger.Parse(s)),
+                name.firstName,
+                name.lastName);
         }
 
         private MathematicianRepresentation CreateRepresentation(Mathematician mathematician)

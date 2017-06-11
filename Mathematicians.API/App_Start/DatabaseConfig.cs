@@ -22,7 +22,7 @@ namespace Mathematicians.API
                 fileName,
                 master.ConnectionString,
                 new Genome());
-            evolver.DestroyDatabase();
+            evolver.DevolveDatabase();
             evolver.EvolveDatabase();
         }
     }
