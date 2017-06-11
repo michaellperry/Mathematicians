@@ -48,8 +48,7 @@ namespace Mathematicians.API.Controllers
 
             using (var context = GetContext())
             {
-                var mathematician = context.Mathematicians
-                    .SingleOrDefault(x => x.Unique == uniqueGuid);
+                var mathematician = LoadMathematician(context, uniqueGuid);
 
                 if (mathematician == null)
                     return NotFound();
@@ -68,8 +67,7 @@ namespace Mathematicians.API.Controllers
 
             using (var context = GetContext())
             {
-                var mathematician = context.Mathematicians
-                    .SingleOrDefault(x => x.Unique == uniqueGuid);
+                var mathematician = LoadMathematician(context, uniqueGuid);
 
                 if (mathematician == null)
                 {
@@ -94,8 +92,7 @@ namespace Mathematicians.API.Controllers
 
             using (var context = GetContext())
             {
-                var mathematician = context.Mathematicians
-                    .SingleOrDefault(x => x.Unique == uniqueGuid);
+                var mathematician = LoadMathematician(context, uniqueGuid);
 
                 if (mathematician == null)
                     return NotFound();
@@ -113,10 +110,18 @@ namespace Mathematicians.API.Controllers
             return new MathematicianContext("Mathematicians");
         }
 
+        private static Mathematician LoadMathematician(MathematicianContext context, Guid uniqueGuid)
+        {
+            return context.Mathematicians
+                .Include("Names")
+                .Include("Names.Prior")
+                .SingleOrDefault(x => x.Unique == uniqueGuid);
+        }
+
         private static void SetName(Mathematician mathematician, NameRepresentation name)
         {
             mathematician.SetName(
-                name.prior.Select(s => s.FromBase64String()),
+                name.ids.Select(s => s.FromBase64String()),
                 name.firstName,
                 name.lastName);
         }

@@ -10,20 +10,20 @@ namespace Mathematicians.Representations
         {
         }
 
-        private NameRepresentation(List<string> prior, string firstName, string lastName)
+        private NameRepresentation(List<string> ids, string firstName, string lastName)
         {
-            this.prior = prior;
+            this.ids = ids;
             this.firstName = firstName;
             this.lastName = lastName;
         }
 
-        public List<string> prior { get; set; }
+        public List<string> ids { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
 
         public static NameRepresentation FromEntities(IEnumerable<MathematicianName> names)
         {
-            var prior = names
+            var ids = names
                 .Select(x => x.HashCodeInt.ToBase64String())
                 .ToList();
             var firstName = names
@@ -35,7 +35,7 @@ namespace Mathematicians.Representations
                 .Select(x => x.LastName)
                 .FirstOrDefault();
             return new NameRepresentation(
-                prior,
+                ids,
                 firstName,
                 lastName);
         }
