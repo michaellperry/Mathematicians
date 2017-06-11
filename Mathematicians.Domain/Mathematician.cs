@@ -23,6 +23,9 @@ namespace Mathematicians.Domain
         public void SetName(IEnumerable<BigInteger> prior, string firstName, string lastName)
         {
             var priorNames = Names.Where(n => prior.Contains(n.HashCodeInt));
+            if (priorNames.Count() == 1 && NameEquals(priorNames.Single(), firstName, lastName))
+                return;
+
             Names.Add(new MathematicianName(priorNames, firstName, lastName));
         }
 
@@ -32,6 +35,11 @@ namespace Mathematicians.Domain
             {
                 Unique = unique
             };
+        }
+
+        private bool NameEquals(MathematicianName prior, string firstName, string lastName)
+        {
+            return prior.FirstName == firstName && prior.LastName == lastName;
         }
     }
 }
