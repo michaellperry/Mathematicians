@@ -10,6 +10,7 @@ namespace Mathematicians.Representations
         }
 
         public string unique { get; set; }
+        public NameRepresentation name { get; set; }
 
         public Dictionary<string, LinkReference> _links { get; set; }
 
@@ -17,7 +18,8 @@ namespace Mathematicians.Representations
         {
             return new MathematicianRepresentation
             {
-                unique = mathematician.Unique.ToString()
+                unique = mathematician.Unique.ToString(),
+                name = NameRepresentation.FromEntities(mathematician.CurrentNames)
             };
         }
     }

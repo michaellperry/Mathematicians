@@ -72,6 +72,7 @@ namespace Mathematicians.API.Controllers
                 if (mathematician == null)
                 {
                     mathematician = context.Mathematicians.Add(Mathematician.Create(uniqueGuid));
+                    mathematician.SetName(representation.name.prior, representation.name.firstName, representation.name.lastName);
                     context.SaveChanges();
                 }
 
@@ -81,16 +82,28 @@ namespace Mathematicians.API.Controllers
             }
         }
 
-        private static Mathematician LoadMathematician(MathematicianContext context, string unique)
+        [HttpPut]
+        [Route("{unique}", Name = "UpdateMathematician")]
+        public IHttpActionResult UpdateMathematician(string unique, MathematicianRepresentation representation)
         {
             Guid uniqueGuid = Guid.Empty;
-            if (Guid.TryParse(unique, out uniqueGuid))
-            {
-                return context.Mathematicians
-                    .SingleOrDefault(x => x.Unique == uniqueGuid);
-            }
+            if (!Guid.TryParse(representation.unique, out uniqueGuid))
+                return BadRequest();
 
-            return null;
+            using (var context = GetContext())
+            {
+                var mathematician = context.Mathematicians
+                    .SingleOrDefault(x => x.Unique == uniqueGuid);
+
+                if (mathematician == null)
+                    return NotFound();
+
+                mathematician.SetName(representation.name.prior, representation.name.firstName, representation.name.lastName);
+                context.SaveChanges();
+
+                return Ok(
+                    CreateRepresentation(mathematician));
+            }
         }
 
         private static MathematicianContext GetContext()

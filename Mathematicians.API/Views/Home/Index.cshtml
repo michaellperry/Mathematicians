@@ -14,7 +14,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Create a new mathematician.</p>
+                <label for="first-name">First Name:</label>
+                <br/>
+                <input type="text" id="first-name" />
+                <br />
+                <label for="last-name">Last Name:</label>
+                <br />
+                <input type="text" id="last-name" />
             </div>
             <div class="modal-footer">
                 <button id="new-mathematician-create" type="button" class="btn btn-primary">OK</button>
@@ -44,6 +50,8 @@
             });
 
             $('#new-mathematician-create').on('click', function () {
+                newMathematician.name.firstName = $('#first-name').val();
+                newMathematician.name.lastName = $('#last-name').val();
                 $.ajax(_links.createMathematician, {
                         type: 'POST',
                         data: JSON.stringify(newMathematician),
