@@ -1,14 +1,19 @@
 ﻿<div class="row">
     <div class="col-md-4">
+        <ul id="mathematician-list" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
         <button class="btn btn-primary" id="new-mathematician">New Mathematician</button>
     </div>
 </div>
 
-<div id="new-mathematician-modal" class="modal fade">
+<div id="edit-mathematician-modal" class="modal fade">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">New Mathematician</h5>
+                <h5 id="modal-title" class="modal-title">New Mathematician</h5>
                 <button type="button" class="close" data-dismiss="modal" area-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -23,7 +28,7 @@
                 <input type="text" id="last-name" />
             </div>
             <div class="modal-footer">
-                <button id="new-mathematician-create" type="button" class="btn btn-primary">OK</button>
+                <button id="edit-mathematician-ok" type="button" class="btn btn-primary">OK</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -34,34 +39,78 @@
 {
     <script type="text/javascript">
         var _links = {
+            getMathematicians: '@Url.HttpRouteUrl("GetMathematicians", new { })',
             getNewMathematician: '@Url.HttpRouteUrl("GetNewMathematician", new { })',
             createMathematician: '@Url.HttpRouteUrl("CreateMathematician", new { })'
         };
 
         $(document).ready(function () {
-            var newMathematician = null;
+            var editMathematician = null;
+            var creating = true;
+            var listItem = null;
+
+            $.get(_links.getMathematicians)
+                .done(function (response) {
+                    response.forEach(function (mathematician) {
+                        appendMathematician(mathematician);
+                    });
+                });
 
             $('#new-mathematician').on('click', function () {
                 $.get(_links.getNewMathematician)
                     .done(function (response) {
-                        newMathematician = response;
-                        $('#new-mathematician-modal').modal();
+                        editMathematician = response;
+                        creating = true;
+                        $('#first-name').val('');
+                        $('#last-name').val('');
+                        $('#modal-title').text('New Mathematician');
+                        $('#edit-mathematician-modal').modal();
                     });
             });
 
-            $('#new-mathematician-create').on('click', function () {
-                newMathematician.name.firstName = $('#first-name').val();
-                newMathematician.name.lastName = $('#last-name').val();
-                $.ajax(_links.createMathematician, {
+            $('#edit-mathematician-ok').on('click', function () {
+                editMathematician.name.firstName = $('#first-name').val();
+                editMathematician.name.lastName = $('#last-name').val();
+                if (creating) {
+                    $.ajax(_links.createMathematician, {
                         type: 'POST',
-                        data: JSON.stringify(newMathematician),
+                        data: JSON.stringify(editMathematician),
                         contentType: 'application/json'
                     })
-                    .done(function (response) {
-                        newMathematician = null;
-                        $('#new-mathematician-modal').modal('hide');
-                    });
+                        .done(function (response) {
+                            appendMathematician(response);
+                            editMathematician = null;
+                            $('#edit-mathematician-modal').modal('hide');
+                        });
+                }
+                else {
+                    $.ajax(editMathematician._links.self.href, {
+                        type: 'PUT',
+                        data: JSON.stringify(editMathematician),
+                        contentType: 'application/json'
+                    })
+                        .done(function (response) {
+                            listItem.text(response.name.firstName + ' ' + response.name.lastName);
+                            editMathematician = null;
+                            $('#edit-mathematician-modal').modal('hide');
+                        });
+                }
             });
+
+            function appendMathematician(mathematician) {
+                var child = $(document.createElement('li'));
+                child.text(mathematician.name.firstName + ' ' + mathematician.name.lastName);
+                child.on('click', function () {
+                    editMathematician = mathematician;
+                    creating = false;
+                    listItem = child;
+                    $('#first-name').val(mathematician.name.firstName);
+                    $('#last-name').val(mathematician.name.lastName);
+                    $('#modal-title').text(mathematician.name.firstName + ' ' + mathematician.name.lastName);
+                    $('#edit-mathematician-modal').modal();
+                });
+                $('#mathematician-list').append(child);
+            }
         });
     </script>    
 }
