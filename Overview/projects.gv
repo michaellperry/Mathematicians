@@ -1,0 +1,16 @@
+digraph "Mathematicians" {
+
+"Mathematicians.API" [shape=rectangle]
+"Mathematicians.DAL" [shape=rectangle]
+"Mathematicians.Domain" [shape=rectangle]
+"Mathematicians.Representations" [shape=rectangle]
+
+"Mathematicians.API" -> "Mathematicians.DAL"
+"Mathematicians.API" -> "Mathematicians.Domain"
+"Mathematicians.API" -> "Mathematicians.Representations"
+
+"Mathematicians.DAL" -> "Mathematicians.Domain"
+
+"Mathematicians.Representations" -> "Mathematicians.Domain"
+
+}

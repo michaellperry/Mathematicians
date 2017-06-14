@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathematicians.Domain", "Mathematicians.Domain\Mathematicians.Domain.csproj", "{7B4609D2-927E-4EAE-B44A-9B9AFFE82D85}"
 EndProject
@@ -10,6 +10,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathematicians.API", "Mathematicians.API\Mathematicians.API.csproj", "{33D31543-C660-488A-88A7-5AFB09EDE79F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathematicians.Representations", "Mathematicians.Representations\Mathematicians.Representations.csproj", "{85498A89-A5B3-4E25-9873-1AA9ACDE1B4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Overview", "Overview", "{3D8807E2-CDED-42BD-AC7A-FE14EA91663E}"
+	ProjectSection(SolutionItems) = preProject
+		Overview\dal.md = Overview\dal.md
+		Overview\domain.md = Overview\domain.md
+		Overview\projects.gv = Overview\projects.gv
+		Overview\projects.png = Overview\projects.png
+		README.md = README.md
+		Overview\representations.md = Overview\representations.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
