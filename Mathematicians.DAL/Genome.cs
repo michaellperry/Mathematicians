@@ -9,10 +9,10 @@ namespace Mathematicians.API
         {
             var dbo = db.UseSchema("dbo");
 
-            CreateMathematician(dbo);
+            CreateMathematician(db, dbo);
         }
 
-        private void CreateMathematician(SchemaSpecification dbo)
+        private void CreateMathematician(DatabaseSpecification db, SchemaSpecification dbo)
         {
             var table = dbo.CreateTable("Mathematician");
 
